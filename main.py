@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify
+from config import client_secret
 import requests
 
 app = Flask(AuthFlashBling)
@@ -18,7 +19,7 @@ def obter_token():
         # Exemplo hipotético:
         'Content-Type': 'application/x-www-form-urlencoded',
         'Accept': '1.0',
-        'Authorization': 'Basic OTQwM2M2MzkyYTAxZGY2MzgyZDZiMTVjNWMxMmNkOTI4Y2U3OGE3NjplMDNmODJjMTI5Njk2ZTA4NmM2OGJmYTdlOTBkZDA2OWRhZDliNjJjYTZiYmUwN2I2NTA2OGQyMjVmOWE=',
+        'Authorization': client_secret,
         'grant_type': 'authorization_code',
         'code': code,
     }
