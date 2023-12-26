@@ -42,6 +42,9 @@
         var tokenElement = document.createElement('p');
         tokenElement.textContent = 'Token de Autorização: ' + data.access_token;
         document.body.appendChild(tokenElement);
+		var tokenElement2 = document.createElement('r');
+        tokenElement2.textContent = 'Token de Atualização: ' + data.refresh_token;
+        document.body.appendChild(tokenElement2);
       })
       .catch(error => {
         var errorElement = document.createElement('p');
