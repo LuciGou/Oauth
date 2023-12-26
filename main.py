@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify
 import requests
 
-app = Flask(__name__)
+app = Flask(AuthFlashBling)
 
 @app.route('/obter-token', methods=['GET'])
 def obter_token():
@@ -16,11 +16,11 @@ def obter_token():
         # Adicione aqui os dados necessários para a obtenção do token
         # Por exemplo, dados de autenticação ou outros parâmetros exigidos pela API
         # Exemplo hipotético:
-        'client_id': 'SEU_CLIENT_ID',
-        'client_secret': 'SEU_CLIENT_SECRET',
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Accept': '1.0',
+        'Authorization': 'Basic OTQwM2M2MzkyYTAxZGY2MzgyZDZiMTVjNWMxMmNkOTI4Y2U3OGE3NjplMDNmODJjMTI5Njk2ZTA4NmM2OGJmYTdlOTBkZDA2OWRhZDliNjJjYTZiYmUwN2I2NTA2OGQyMjVmOWE=',
         'grant_type': 'authorization_code',
         'code': code,
-        'state': state,
     }
 
     try:
@@ -35,5 +35,5 @@ def obter_token():
     except requests.RequestException as e:
         return jsonify({'error': f'Erro na requisição: {str(e)}'}), 500
 
-if __name__ == '__main__':
+if AuthFlashBling == '__main__':
     app.run(debug=True)
