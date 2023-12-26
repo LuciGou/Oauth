@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Token de Autorização</title>
+</head>
+<body>
+
+  <h1>Token de Autorização</h1>
+  
+  <script>
+    function getURLParameter(name) {
+      name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+      var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+      var results = regex.exec(location.search);
+      return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+    };
+
+    var code = getURLParameter('code');
+    var state = getURLParameter('state');
+
+    if (code !== '') {
+      var url = 'https://www.bling.com.br/Api/v3/oauth/token';
+      var authorization = 'Basic OTQwM2M2MzkyYTAxZGY2MzgyZDZiMTVjNWMxMmNkOTI4Y2U3OGE3NjplMDNmODJjMTI5Njk2ZTA4NmM2OGJmYTdlOTBkZDA2OWRhZDliNjJjYTZiYmUwN2I2NTA2OGQyMjVmOWE=';
+
+      var params = new URLSearchParams();
+      params.append('grant_type', 'authorization_code');
+      params.append('code', code);
+      params.append('state', state);
+
+      fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'Authorization': authorization
+        },
+        body: params
+      })
+      .then(response => response.json())
+      .then(data => {
+        // Aqui é onde lidamos com a resposta do servidor
+        var tokenElement = document.createElement('p');
+        tokenElement.textContent = 'Token de Autorização: ' + data.access_token;
+        document.body.appendChild(tokenElement);
+      })
+      .catch(error => {
+        var errorElement = document.createElement('p');
+        errorElement.textContent = 'Erro ao obter token de autorização: ' + error;
+        document.body.appendChild(errorElement);
+      });
+    } else {
+      var errorMessage = document.createElement('p');
+      errorMessage.textContent = 'Código de autorização ausente na URL.';
+      document.body.appendChild(errorMessage);
+    }
+  </script>
+</body>
+</html>
